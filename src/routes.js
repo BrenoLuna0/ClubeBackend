@@ -5,6 +5,7 @@ const TitularController = require('./controller/TitularController');
 const ConvidadoController = require('./controller/ConvidadoController');
 const AgendaController = require('./controller/AgendaController');
 const AgendaConvidadoController = require('./controller/AgendaConvidadoController');
+const auth = require('./services/auth');
 const gerarId = require('./services/geradorDeId');
 
 
@@ -12,16 +13,16 @@ routes.get('/', (req,res)=>{
     res.send('Tudo Certo nada Errado');
 });
 
-routes.get('/titular', TitularController.index);
+routes.get('/titular', auth, TitularController.index);
 routes.post('/titular', TitularController.login);
 
-routes.get('/convidado/:sociCodigo', ConvidadoController.index);
-routes.post('/convidado', ConvidadoController.create);
+routes.get('/convidado/:sociCodigo', auth, ConvidadoController.index);
+routes.post('/convidado', auth, ConvidadoController.create);
 
-routes.post('/agenda', AgendaController.create);
+routes.post('/agenda', auth, AgendaController.create);
 
-routes.post('/agendaConvidado', AgendaConvidadoController.create);
+routes.post('/agendaConvidado', auth, AgendaConvidadoController.create);
 
-routes.post('/gerarIdConvidado', gerarId);
+routes.post('/gerarIdConvidado', auth, gerarId);
 
 module.exports = routes;
