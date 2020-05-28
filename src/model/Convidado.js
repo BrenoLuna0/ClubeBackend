@@ -29,7 +29,7 @@ class Convidado {
     static async getConvidadoPorTitular(sociCodigo){
         const titulares = await connection('CONVIDADO_TITULO')
         .where('SOCI_CODIGO',sociCodigo)
-        .select('CONV_TITU_NOME','CONV_TITU_CPFCNPJ')
+        .select('CONV_TITU_CODIGO','CONV_TITU_NOME','CONV_TITU_CPFCNPJ')
         .catch(function(err){
             console.log(err);
             return false;
