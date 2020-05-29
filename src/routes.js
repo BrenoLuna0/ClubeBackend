@@ -23,6 +23,7 @@ routes.post('/agenda', auth, AgendaController.create);
 
 routes.post('/agendaConvidado', auth, AgendaConvidadoController.create);
 
-routes.post('/gerarIdConvidado', auth, gerarId);
+routes.get('/gerarIdConvidado', auth, gerarId.gerarId);
+routes.get('/gerarIdAgenda', auth, gerarId.gerarIdAgenda);
 
 module.exports = routes;

@@ -11,12 +11,14 @@ class AgendaConvidado {
 
     async save() {
         const rows = this.convidados.map((convidado) => {
-            return {
-                AGEN_CODIGO: this.AGEN_CODIGO,
-                CONV_TITU_CODIGO: convidado.CONV_TITU_CODIGO,
-                SOCI_CODIGO: this.SOCI_CODIGO,
-                AGEN_CONV_TITU_OBSERVACAO: this.AGEN_CONV_TITU_OBSERVACAO,
-                DATA_HORA_INCL: this.DATA_HORA_INCL
+            if (convidado != null) {
+                return {
+                    AGEN_CODIGO: this.AGEN_CODIGO,
+                    CONV_TITU_CODIGO: convidado.CONV_TITU_CODIGO,
+                    SOCI_CODIGO: this.SOCI_CODIGO,
+                    AGEN_CONV_TITU_OBSERVACAO: this.AGEN_CONV_TITU_OBSERVACAO,
+                    DATA_HORA_INCL: this.DATA_HORA_INCL
+                }
             }
         });
         const convidado = await connection('AGENDA_CONVIDADO_TITULO')
