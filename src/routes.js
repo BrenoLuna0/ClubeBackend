@@ -10,7 +10,7 @@ const gerarId = require("./services/geradorDeId");
 
 routes.get("/", (req, res) => {
   res.send(
-    "Posso pressentir o perigo e o caos, e ninguém agora vai me amedrontar"
+    "Seu sorriso é tão resplandecente que deixou meu coração alegre, me dê a mão pra fugir dessa terrível escuridão"
   );
 });
 
