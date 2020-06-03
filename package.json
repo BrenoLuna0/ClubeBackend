@@ -15,7 +15,8 @@
     "express-session": "^1.17.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.13",
-    "md5": "^2.2.1"
+    "md5": "^2.2.1",
+    "oracledb": "^4.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
