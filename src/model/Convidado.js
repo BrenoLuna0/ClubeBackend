@@ -26,7 +26,7 @@ class Convidado {
   }
 
   static async getConvidadoPorTitular(sociCodigo) {
-    const titulares = await connection("CONVIDADO_TITULO")
+    const convidados = await connection("CONVIDADO_TITULO")
       .where("SOCI_CODIGO", sociCodigo)
       .select("CONV_TITU_CODIGO", "CONV_TITU_NOME", "CONV_TITU_CPFCNPJ")
       .catch(function (err) {
@@ -34,7 +34,22 @@ class Convidado {
         return false;
       });
 
-    return titulares;
+    return convidados;
+  }
+
+  static async getConvidadoPorCpf(cpf) {
+    const convidado = await connection("CONVIDADO_TITULO")
+      .where("CONV_TITU_CPFCNPJ", cpf)
+      .select("CONV_TITU_CPFCNPJ")
+      .then((response) => {
+        return response.length;
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+
+    return convidado;
   }
 }
 
