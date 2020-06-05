@@ -4,7 +4,7 @@ module.exports = {
   async create(req, res) {
     const qtdConvidados = await Convidado.getConvidadoPorCpf(req.body.cpf);
     if (qtdConvidados === false) return res.status(500).send(false);
-    if (qtdConvidados > 0) return res.send(1);
+    if (qtdConvidados > 0) return res.send("1");
     const convidado = new Convidado(
       req.body.nome,
       req.body.socio,
