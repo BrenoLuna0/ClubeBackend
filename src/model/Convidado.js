@@ -37,9 +37,10 @@ class Convidado {
     return convidados;
   }
 
-  static async getConvidadoPorCpf(cpf) {
+  static async getConvidadoPorCpf(cpf, sociCodigo) {
     const convidado = await connection("CONVIDADO_TITULO")
       .where("CONV_TITU_CPFCNPJ", cpf)
+      .where("SOCI_CODIGO", sociCodigo)
       .select("CONV_TITU_CPFCNPJ")
       .then((response) => {
         return response.length;
