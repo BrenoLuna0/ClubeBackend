@@ -18,7 +18,7 @@ class Titular {
   }
 
   static async getTitulares() {
-    const titulares = await connection("titulo")
+    const titulares = await connection("TITULO")
       .select(
         "TITU_CODIGO",
         "TITU_NUME_TITULO",
@@ -34,7 +34,7 @@ class Titular {
   }
 
   static async login(codigo, senha) {
-    const titular = await connection("titulo")
+    const titular = await connection("TITULO")
       .where("TITU_NUME_TITULO", parseInt(codigo))
       .orWhere("SOCI_CPFCNPJ", codigo)
       .select(
