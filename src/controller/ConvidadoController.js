@@ -2,7 +2,10 @@ const Convidado = require("../model/Convidado");
 
 module.exports = {
   async create(req, res) {
-    const qtdConvidados = await Convidado.getConvidadoPorCpf(req.body.cpf);
+    const qtdConvidados = await Convidado.getConvidadoPorCpf(
+      req.body.cpf,
+      req.body.socio
+    );
     if (qtdConvidados === false) return res.status(500).send(false);
     if (qtdConvidados > 0) return res.send("1");
     const convidado = new Convidado(
