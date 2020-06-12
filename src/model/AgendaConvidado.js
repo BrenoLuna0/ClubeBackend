@@ -37,6 +37,25 @@ class AgendaConvidado {
 
     return convidado;
   }
+
+  static async getDatas(sociCodigo) {
+    const result = await connection("AGENDA_CONVIDADO_TITULO")
+      .join(
+        "AGENDA",
+        "AGENDA_CONVIDADO_TITULO.AGEN_CODIGO",
+        "=",
+        "AGENDA.AGEN_CODIGO"
+      )
+      .where("AGENDA_CONVIDADO_TITULO.SOCI_CODIGO", sociCodigo)
+      .select("AGENDA.AGEN_DATA", "AGENDA.AGEN_CODIGO")
+      .distinct("AGENDA.AGEN_CODIGO")
+      .orderBy("AGENDA.AGEN_CODIGO")
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    return result;
+  }
 }
 
 module.exports = AgendaConvidado;

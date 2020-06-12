@@ -11,4 +11,9 @@ module.exports = {
     );
     res.send(await agendaConvidado.save());
   },
+
+  async index(req, res) {
+    const result = await AgendaConvidado.getDatas(req.params.sociCodigo);
+    res.json(result);
+  },
 };

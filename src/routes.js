@@ -22,4 +22,9 @@ routes.post("/convidado", auth, ConvidadoController.create);
 routes.post("/agenda", auth, AgendaController.create);
 
 routes.post("/agendaConvidado", auth, AgendaConvidadoController.create);
+routes.get(
+  "/agendaConvidado/:sociCodigo",
+  auth,
+  AgendaConvidadoController.index
+);
 module.exports = routes;
