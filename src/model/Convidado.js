@@ -73,7 +73,8 @@ class Convidado {
       .select(
         "CONVIDADO_TITULO.CONV_TITU_CODIGO",
         "CONVIDADO_TITULO.CONV_TITU_NOME",
-        "CONVIDADO_TITULO.CONV_TITU_CPFCNPJ"
+        "CONVIDADO_TITULO.CONV_TITU_CPFCNPJ",
+        "AGENDA.AGEN_CODIGO"
       )
       .orderBy("CONVIDADO_TITULO.CONV_TITU_CODIGO", "asc")
       .catch((err) => {
