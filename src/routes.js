@@ -17,6 +17,11 @@ routes.get("/titular", auth, TitularController.index);
 routes.post("/titular", TitularController.login);
 
 routes.get("/convidado/:sociCodigo", auth, ConvidadoController.index);
+routes.get(
+  "/convidado/:sociCodigo/:data",
+  auth,
+  ConvidadoController.schedulled
+);
 routes.post("/convidado", auth, ConvidadoController.create);
 
 routes.post("/agenda", auth, AgendaController.create);

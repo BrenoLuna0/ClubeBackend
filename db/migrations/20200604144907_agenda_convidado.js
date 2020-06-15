@@ -10,6 +10,10 @@ exports.up = function (knex) {
     table.integer("ID_USUARIO_ALTR");
     table.date("DATA_HORA_ALTR");
     table.primary(["AGEN_CODIGO", "CONV_TITU_CODIGO", "SOCI_CODIGO"]);
+    table.foreign("AGEN_CODIGO").references("AGENDA.AGEN_CODIGO");
+    table
+      .foreign("CONV_TITU_CODIGO")
+      .references("CONVIDADO_TITULO.CONV_TITU_CODIGO");
   });
 };
 

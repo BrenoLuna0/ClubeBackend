@@ -31,6 +31,15 @@ module.exports = {
     const convidados = await Convidado.getConvidadoPorTitular(
       req.params.sociCodigo
     );
-    res.send(convidados);
+    return res.send(convidados);
+  },
+
+  async schedulled(req, res) {
+    return res.send(
+      await Convidado.getAgendaConvidados(
+        req.params.data,
+        req.params.sociCodigo
+      )
+    );
   },
 };

@@ -29,6 +29,7 @@ class Convidado {
     const convidados = await connection("CONVIDADO_TITULO")
       .where("SOCI_CODIGO", sociCodigo)
       .select("CONV_TITU_CODIGO", "CONV_TITU_NOME", "CONV_TITU_CPFCNPJ")
+      .orderBy("CONV_TITU_CODIGO", "asc")
       .catch(function (err) {
         console.log(err);
         return false;
@@ -51,6 +52,35 @@ class Convidado {
       });
 
     return convidado;
+  }
+
+  static async getAgendaConvidados(data, sociCodigo) {
+    const convidados = await connection("AGENDA_CONVIDADO_TITULO")
+      .join(
+        "AGENDA",
+        "AGENDA_CONVIDADO_TITULO.AGEN_CODIGO",
+        "=",
+        "AGENDA.AGEN_CODIGO"
+      )
+      .join(
+        "CONVIDADO_TITULO",
+        "AGENDA_CONVIDADO_TITULO.CONV_TITU_CODIGO",
+        "=",
+        "CONVIDADO_TITULO.CONV_TITU_CODIGO"
+      )
+      .where("AGENDA.AGEN_DATA", data)
+      .andWhere("AGENDA_CONVIDADO_TITULO.SOCI_CODIGO", sociCodigo)
+      .select(
+        "CONVIDADO_TITULO.CONV_TITU_CODIGO",
+        "CONVIDADO_TITULO.CONV_TITU_NOME"
+      )
+      .orderBy("CONVIDADO_TITULO.CONV_TITU_CODIGO", "asc")
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+
+    return convidados;
   }
 }
 
