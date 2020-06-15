@@ -72,7 +72,8 @@ class Convidado {
       .andWhere("AGENDA_CONVIDADO_TITULO.SOCI_CODIGO", sociCodigo)
       .select(
         "CONVIDADO_TITULO.CONV_TITU_CODIGO",
-        "CONVIDADO_TITULO.CONV_TITU_NOME"
+        "CONVIDADO_TITULO.CONV_TITU_NOME",
+        "CONVIDADO_TITULO.CONV_TITU_CPFCNPJ"
       )
       .orderBy("CONVIDADO_TITULO.CONV_TITU_CODIGO", "asc")
       .catch((err) => {
