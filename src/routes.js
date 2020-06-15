@@ -26,6 +26,7 @@ routes.post("/convidado", auth, ConvidadoController.create);
 
 routes.post("/agenda", auth, AgendaController.create);
 routes.put("/agenda/:agenCodigo", auth, AgendaController.update);
+routes.delete("/agenda/:agenCodigo", auth, AgendaController.delete);
 
 routes.post("/agendaConvidado", auth, AgendaConvidadoController.create);
 routes.get(

@@ -47,6 +47,7 @@ class AgendaConvidado {
         "AGENDA.AGEN_CODIGO"
       )
       .where("AGENDA_CONVIDADO_TITULO.SOCI_CODIGO", sociCodigo)
+      .andWhere("AGENDA.AGEN_DATA", ">=", new Date())
       .select("AGENDA.AGEN_DATA", "AGENDA.AGEN_CODIGO")
       .distinct("AGENDA.AGEN_CODIGO")
       .orderBy("AGENDA.AGEN_CODIGO")

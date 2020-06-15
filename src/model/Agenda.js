@@ -58,6 +58,17 @@ class Agenda {
 
     return convidado;
   }
+
+  static async delete(agenCodigo) {
+    const trx = await connection.transaction();
+
+    await trx("AGENDA_CONVIDADO_TITULO").where("AGEN_CODIGO", agenCodigo).del();
+    await trx("AGENDA").where("AGEN_CODIGO", agenCodigo).del();
+
+    await trx.commit();
+
+    return true;
+  }
 }
 
 module.exports = Agenda;

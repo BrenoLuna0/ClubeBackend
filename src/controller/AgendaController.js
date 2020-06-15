@@ -20,4 +20,8 @@ module.exports = {
     );
     res.send(result);
   },
+
+  async delete(req, res) {
+    res.send(await Agenda.delete(req.params.agenCodigo));
+  },
 };
