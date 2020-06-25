@@ -34,8 +34,14 @@ class Titular {
   }
 
   static async login(codigo, senha) {
+    let tituCodigo;
+    parseInt(codigo.replace(".", "").replace(".", "").replace("-", "")) > 999999
+      ? (tituCodigo = 0)
+      : (tituCodigo = parseInt(
+          codigo.replace(".", "").replace(".", "").replace("-", "")
+        ));
     const titular = await connection("TITULO")
-      .where("TITU_NUME_TITULO", parseInt(codigo))
+      .where("TITU_NUME_TITULO", tituCodigo)
       .orWhere("SOCI_CPFCNPJ", codigo)
       .select(
         "TITU_CODIGO",
