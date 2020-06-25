@@ -14,6 +14,7 @@ routes.get("/", (req, res) => {
 });
 
 routes.get("/titular", auth, TitularController.index);
+routes.put("/titular/:codigo", auth, TitularController.updatePassword);
 routes.post("/titular", TitularController.login);
 
 routes.get("/convidado/:sociCodigo", auth, ConvidadoController.index);

@@ -10,4 +10,13 @@ module.exports = {
     const titular = await Titular.login(req.body.codigo, req.body.senha);
     res.send(titular);
   },
+
+  async updatePassword(req, res) {
+    const titular = await Titular.changePassword(
+      req.params.codigo,
+      req.body.newPass,
+      req.body.oldPass
+    );
+    return res.json(titular);
+  },
 };

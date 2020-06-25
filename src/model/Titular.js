@@ -77,6 +77,38 @@ class Titular {
       return false;
     }
   }
+
+  static async changePassword(codigo, novaSenha, senhaAntiga) {
+    const verificacao = await connection("TITULO")
+      .where("TITU_CODIGO", codigo)
+      .andWhere("SENHA_WEB_MD5", md5(senhaAntiga).toUpperCase())
+      .select("*")
+      .then((response) => {
+        if (response.length !== 0) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+    if (verificacao) {
+      const titular = await connection("TITULO")
+        .returning("*")
+        .where("TITU_CODIGO", codigo)
+        .update("SENHA_WEB_MD5", md5(novaSenha).toUpperCase())
+        .catch((err) => {
+          console.log(err);
+          return false;
+        });
+
+      return titular;
+    } else {
+      return false;
+    }
+  }
 }
 
 module.exports = Titular;
