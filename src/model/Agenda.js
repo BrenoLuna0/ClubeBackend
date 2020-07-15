@@ -1,4 +1,5 @@
 const connection = require("../pgConnection");
+const moment = require("moment");
 
 class Agenda {
   constructor(AGEN_DATA, AGEN_DIA_SEMANA, AGEN_QTD_CONVIDADO, DATA_HORA_INCL) {
@@ -68,6 +69,69 @@ class Agenda {
     await trx.commit();
 
     return true;
+  }
+
+  static async index(sociCodigo) {
+    const date = moment(new Date()).format("MM-DD-yyyy");
+    const agenda = await connection("AGENDA")
+      .join(
+        "AGENDA_CONVIDADO_TITULO",
+        "AGENDA.AGEN_CODIGO",
+        "=",
+        "AGENDA_CONVIDADO_TITULO.AGEN_CODIGO"
+      )
+      .where("AGEN_DATA", ">=", date)
+      .andWhere("AGENDA_CONVIDADO_TITULO.SOCI_CODIGO", sociCodigo)
+      .select(
+        "AGENDA.AGEN_CODIGO",
+        "AGENDA.AGEN_DATA",
+        "AGENDA_CONVIDADO_TITULO.SOCI_CODIGO"
+      )
+      .distinct()
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+
+    const agendaConvidados = agenda.map(async (data, index) => {
+      const convidados = await connection("AGENDA_CONVIDADO_TITULO")
+        .join(
+          "AGENDA",
+          "AGENDA_CONVIDADO_TITULO.AGEN_CODIGO",
+          "=",
+          "AGENDA.AGEN_CODIGO"
+        )
+        .join(
+          "CONVIDADO_TITULO",
+          "AGENDA_CONVIDADO_TITULO.CONV_TITU_CODIGO",
+          "=",
+          "CONVIDADO_TITULO.CONV_TITU_CODIGO"
+        )
+        .where("AGENDA.AGEN_DATA", data.AGEN_DATA)
+        .andWhere("AGENDA_CONVIDADO_TITULO.SOCI_CODIGO", data.SOCI_CODIGO)
+        .select(
+          "CONVIDADO_TITULO.CONV_TITU_CODIGO",
+          "CONVIDADO_TITULO.CONV_TITU_NOME",
+          "CONVIDADO_TITULO.CONV_TITU_CPFCNPJ",
+          "AGENDA.AGEN_CODIGO"
+        )
+        .orderBy("CONVIDADO_TITULO.CONV_TITU_CODIGO", "asc")
+        .catch((err) => {
+          console.log(err);
+          return false;
+        });
+      return {
+        AGEN_CODIGO: data.AGEN_CODIGO,
+        AGEN_DATA: data.AGEN_DATA,
+        SOCI_CODIGO: data.SOCI_CODIGO,
+        CONVIDADOS: convidados,
+      };
+    });
+
+    let result;
+    await Promise.all(agendaConvidados).then((results) => (result = results));
+
+    return result;
   }
 }
 

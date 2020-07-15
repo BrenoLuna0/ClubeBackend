@@ -24,4 +24,8 @@ module.exports = {
   async delete(req, res) {
     res.send(await Agenda.delete(req.params.agenCodigo));
   },
+
+  async index(req, res) {
+    res.send(await Agenda.index(req.params.sociCodigo));
+  },
 };
