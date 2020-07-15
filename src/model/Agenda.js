@@ -109,12 +109,7 @@ class Agenda {
         )
         .where("AGENDA.AGEN_DATA", data.AGEN_DATA)
         .andWhere("AGENDA_CONVIDADO_TITULO.SOCI_CODIGO", data.SOCI_CODIGO)
-        .select(
-          "CONVIDADO_TITULO.CONV_TITU_CODIGO",
-          "CONVIDADO_TITULO.CONV_TITU_NOME",
-          "CONVIDADO_TITULO.CONV_TITU_CPFCNPJ",
-          "AGENDA.AGEN_CODIGO"
-        )
+        .select("CONVIDADO_TITULO.CONV_TITU_NOME")
         .orderBy("CONVIDADO_TITULO.CONV_TITU_CODIGO", "asc")
         .catch((err) => {
           console.log(err);
