@@ -88,6 +88,7 @@ class Agenda {
         "AGENDA_CONVIDADO_TITULO.SOCI_CODIGO"
       )
       .distinct()
+      .orderBy("AGENDA.AGEN_DATA")
       .catch((err) => {
         console.log(err);
         return false;
