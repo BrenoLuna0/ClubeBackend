@@ -84,6 +84,17 @@ class Convidado {
 
     return convidados;
   }
+
+  static async remove(id) {
+    return await connection("CONVIDADO_TITULO")
+      .where("CONV_TITU_CODIGO", id)
+      .del()
+      .then(() => true)
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+  }
 }
 
 module.exports = Convidado;

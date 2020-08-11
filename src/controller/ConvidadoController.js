@@ -42,4 +42,8 @@ module.exports = {
       )
     );
   },
+
+  async delete(req, res) {
+    return res.send(await Convidado.remove(req.params.convCodigo));
+  },
 };
