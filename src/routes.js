@@ -5,6 +5,7 @@ const TitularController = require("./controller/TitularController");
 const ConvidadoController = require("./controller/ConvidadoController");
 const AgendaController = require("./controller/AgendaController");
 const AgendaConvidadoController = require("./controller/AgendaConvidadoController");
+const MensagemController = require("./controller/MensagemController");
 const auth = require("./services/auth");
 
 routes.get("/", (req, res) => {
@@ -37,4 +38,10 @@ routes.get(
   auth,
   AgendaConvidadoController.index
 );
+
+routes.post("/mensagem", auth, MensagemController.createMessage);
+routes.post("/lerMensagem", auth, MensagemController.readMessage);
+routes.get("/mensagemLida/:tituCodigo", auth, MensagemController.readed);
+routes.get("/mensagemNaoLida/:tituCodigo", auth, MensagemController.notReaded);
+
 module.exports = routes;

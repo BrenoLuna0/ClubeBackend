@@ -56,25 +56,26 @@ class Convidado {
 
   static async getAgendaConvidados(data, sociCodigo) {
     const convidados = await connection("AGENDA_CONVIDADO_TITULO")
-      .join(
+      .rightJoin(
         "AGENDA",
         "AGENDA_CONVIDADO_TITULO.AGEN_CODIGO",
         "=",
         "AGENDA.AGEN_CODIGO"
       )
-      .join(
+      .rightJoin(
         "CONVIDADO_TITULO",
         "AGENDA_CONVIDADO_TITULO.CONV_TITU_CODIGO",
         "=",
         "CONVIDADO_TITULO.CONV_TITU_CODIGO"
       )
       .where("AGENDA.AGEN_DATA", data)
-      .andWhere("AGENDA_CONVIDADO_TITULO.SOCI_CODIGO", sociCodigo)
+      .andWhere("CONVIDADO_TITULO.SOCI_CODIGO", sociCodigo)
       .select(
         "CONVIDADO_TITULO.CONV_TITU_CODIGO",
         "CONVIDADO_TITULO.CONV_TITU_NOME",
         "CONVIDADO_TITULO.CONV_TITU_CPFCNPJ",
-        "AGENDA.AGEN_CODIGO"
+        "AGENDA.AGEN_CODIGO",
+        "AGENDA.AGEN_DATA"
       )
       .orderBy("CONVIDADO_TITULO.CONV_TITU_CODIGO", "asc")
       .catch((err) => {
