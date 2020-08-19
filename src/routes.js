@@ -43,5 +43,10 @@ routes.post("/mensagem", auth, MensagemController.createMessage);
 routes.post("/lerMensagem", auth, MensagemController.readMessage);
 routes.get("/mensagemLida/:tituCodigo", auth, MensagemController.readed);
 routes.get("/mensagemNaoLida/:tituCodigo", auth, MensagemController.notReaded);
+routes.get(
+  "/contarMensagem/:tituCodigo",
+  auth,
+  MensagemController.countMessage
+);
 
 module.exports = routes;

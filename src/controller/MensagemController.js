@@ -27,4 +27,8 @@ module.exports = {
       ).save()
     );
   },
+
+  async countMessage(req, res) {
+    res.json(await Mensagem.countNotReadMessage(req.params.tituCodigo));
+  },
 };

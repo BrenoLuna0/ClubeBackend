@@ -89,6 +89,34 @@ class Mensagem {
         return false;
       });
   }
+
+  static async countNotReadMessage(tituCodigo) {
+    const data = moment(new Date()).format("YYYY-MM-DD");
+    return await connection
+      .raw(
+        'SELECT "MESG_CODIGO" FROM "MENSAGEM" EXCEPT SELECT "MESG_CODIGO" FROM "MENSAGEM_TITULO" WHERE "TITU_CODIGO" = ? ORDER BY "MESG_CODIGO" ASC',
+        [tituCodigo]
+      )
+      .then(async (response) => {
+        return await connection("MENSAGEM")
+          .count("MESG_CODIGO")
+          .whereIn(
+            "MESG_CODIGO",
+            response.rows.map((item) => item.MESG_CODIGO)
+          )
+          .andWhere(function () {
+            this.where("MESG_DATA_INICIO", "<=", data).andWhere(
+              "MESG_DATA_FIM",
+              ">=",
+              data
+            );
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+  }
 }
 
 module.exports = Mensagem;
